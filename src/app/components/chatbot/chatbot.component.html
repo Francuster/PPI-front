@@ -1,0 +1,32 @@
+
+<h2>Mensajes</h2>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Mensajes</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (message of messageArray; track $index){
+      <tr>
+        <td> {{message}}</td>
+      </tr>
+    }
+
+  </tbody>
+</table>
+
+<form
+  [formGroup]="chatForm"
+  (ngSubmit)="onSubmitMessaje()">
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Pregunta</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+              formControlName="input"></textarea>
+  </div>
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary" [disabled]="!chatForm.valid">Enviar</button>
+  </div>
+
+</form>
