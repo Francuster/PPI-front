@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ChatbotService} from "../../service/chatbot.service";
 import {FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
+import {LoginResponse} from "../../model/login-response.model";
 
 @Component({
   selector: 'app-chatbot',
@@ -17,6 +18,9 @@ export class ChatbotComponent {
   loading: boolean = false;
 
   messageArray: string[] = [];
+
+  loginSuccess = '';
+  loginError = '';
 
   chatForm = new UntypedFormGroup(
     {
@@ -49,6 +53,31 @@ export class ChatbotComponent {
       );
       this.chatForm.reset();
     }
+
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.chatbotService.uploadImage(file).subscribe(
+      {
+        next: value => {
+          if(value.authenticated){
+            this.loginSuccess = 'Se inicio sesion correctamente! Bienvenido: ' + value.user;
+            this.loginError = '';
+          } else {
+            this.loginError = 'Las credenciales ingresadas no son validas.';
+            this.loginSuccess = '';
+          }
+
+        },
+        error: err => {
+          this.loginError = 'Las credenciales ingresadas no son validas.';
+          this.loginSuccess = '';
+
+        }
+      }
+    );
+
 
   }
 }

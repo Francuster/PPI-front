@@ -35,3 +35,23 @@
   </div>
 
 </form>
+
+
+<h2>Login con Huella Digital</h2>
+<div class="mb-3">
+  <label for="image" class="form-label">Imagen</label>
+  <input type="file" class="form-control" id="image" (change)="onFileSelected($event)">
+</div>
+@if (loginSuccess != ''){
+  <div class="alert alert-success" role="alert">
+    {{loginSuccess}}
+  </div>
+}
+@if (loginError != ''){
+  <div class="alert alert-danger" role="alert">
+    {{loginError}}
+  </div>
+}
+
+
+
