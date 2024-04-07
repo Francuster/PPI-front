@@ -14,6 +14,8 @@ import {FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, 
 })
 export class ChatbotComponent {
 
+  loading: boolean = false;
+
   messageArray: string[] = [];
 
   chatForm = new UntypedFormGroup(
@@ -28,6 +30,8 @@ export class ChatbotComponent {
   onSubmitMessaje() {
     if(this.chatForm.valid){
 
+      this.loading = true;
+
       const inputText = this.chatForm.value.input;
 
       this.messageArray.push(inputText);
@@ -36,10 +40,14 @@ export class ChatbotComponent {
         {
           next: value => {
             this.messageArray.push(value.response);
+            this.loading = false;
           },
-          error: err => {}
+          error: err => {
+            this.loading = false;
+          }
         }
       );
+      this.chatForm.reset();
     }
 
   }

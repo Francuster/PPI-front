@@ -12,8 +12,8 @@ export class ChatbotService {
 
   getResponse(input: string){
     let queryParams = new HttpParams();
-    queryParams.append('input', input);
+    queryParams = queryParams.append('input', input);
 
-    return this.httpClient.get<ChatbotResponse>('https://matizipi.pythonanywhere.com/', {params: queryParams});
+    return this.httpClient.get<ChatbotResponse>('https://matizipi.pythonanywhere.com', {params: queryParams});
   }
 }
